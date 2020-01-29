@@ -27,7 +27,7 @@ cloneしてすぐに機能実装に入れるように必要な設定をまとめ
 
 ```bash
 $ cp .env.default .env
-$ cp src/.env.example .env
+$ cp src/.env.example src/.env
 ```
 
 ### 各コンテナのビルド（初めて起動する時）
@@ -45,7 +45,7 @@ $ docker-compose up
 ### composer install
 
 ```bash
-$ docker-compose exec composer install
+$ docker-compose exec app composer install
 ```
 
 ### DBセットアップ

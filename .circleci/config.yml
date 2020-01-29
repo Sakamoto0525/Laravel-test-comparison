@@ -1,0 +1,78 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.3-node-browsers
+      - image: circleci/mysql:8.0
+        command: [--default-authentication-plugin=mysql_native_password]
+
+    environment:
+      - APP_DEBUG: true
+      - APP_ENV: testing
+      - APP_KEY: base64:cNXu2NqWHiIzuxqg6vIvefXTOdxtvWKqYFXKp0v4KKA=
+      - DB_CONNECTION: circle_test
+      - MYSQL_ALLOW_EMPTY_PASSWORD: true
+
+    steps:
+      - checkout
+
+      - run:
+          name: Software install
+          command: |
+            sudo apt update
+            sudo apt install -y libsqlite3-dev zlib1g-dev
+
+      - run:
+          name: Extensions install
+          command: |
+            sudo docker-php-ext-install zip
+            sudo docker-php-ext-install pdo_mysql
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "src/composer.json" }}
+            - v1-dependencies-
+
+      - run:
+          name: composer install
+          command: cd src && composer install -n --prefer-dist
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "src/composer.json" }}
+          paths:
+            - ./vendor
+
+      - run:
+          name: Migrate
+          command: cd src && php artisan migrate --force
+
+      - run:
+          name: PHPUnit
+          command: cd src && php ./vendor/bin/phpunit
+
+      - run:
+          name: php_codesniffer
+          command: cd src && php ./vendor/bin/phpcs --standard=phpcs.xml ./
+
+      - run:
+          name: php-cs-fixer
+          command: cd src && php ./vendor/bin/php-cs-fixer fix -v --dry-run
+
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "frontend/package.json" }}
+            - node-v1-
+
+      - run:
+          name: npm install
+          command: cd frontend && npm install
+
+      - save_cache:
+          key: node-v1-{{ checksum "frontend/package-lock.json" }}
+          paths:
+            - node_modules
+
+      - run:
+          name: eslint
+          command: cd frontend && npm run lint
