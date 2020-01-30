@@ -1,11 +1,6 @@
-# Prologue
+# Laravel-test-comparison
 
-LaraveとNuxt.jsのスターターセットです。
-
-cloneしてすぐに機能実装に入れるように必要な設定をまとめています。
-技術のアップデートに追従して常にメンテナンスしていきましょう。
-入れておきたい設定・ライブラリがあればプルリクをお願いします。
-なお、なるべくプルリクは３つ以上作成しないようお願いします。
+Laravel標準のPHPUnitとLaravel-Kahlanのテストを、UserAPIを通して実装・比較をする
 
 ## 環境
 
@@ -82,15 +77,6 @@ $ docker-compose exec app composer fixer-fix
 $ docker-compose exec app composer sniffer
 # 自動整形
 $ docker-compose exec app composer sniffer-fix
-```
-
-### eslint
-
-```bash
-# frontendディレクトリ配下で実行
-$ npm run lint
-# 自動整形
-$ npm run lint --fix
 ```
 
 ## MySQL 接続
