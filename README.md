@@ -63,6 +63,12 @@ $ docker-compose restart app
 $ docker-compose exec app vendor/bin/phpunit
 ```
 
+### kahlan
+
+```bash
+$ docker-compose exec app vendor/bin/kahlan
+```
+
 ### php_cs_fixer
 
 ```bash
