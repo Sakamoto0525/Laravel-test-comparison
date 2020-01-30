@@ -30,7 +30,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect('api/user');
+        return response($user);
     }
 
     /**
@@ -58,7 +58,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect("api/user/{$id}");
+        return response($user);
     }
 
     /**
@@ -71,6 +71,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('api/user');
+        return response($user);
     }
 }
