@@ -32,7 +32,7 @@ class UserControllerTest extends TestCase
     public function storeAPI()
     {
         $data = [
-            "name" => "坂本雅也",
+            "name" => "田中",
             "email" => "test@example.com",
             "password" => "123456789"
         ];
@@ -49,14 +49,10 @@ class UserControllerTest extends TestCase
     /** @test */
     public function updateAPI()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
-        // $makUser = factory(User::class)->make();
 
-        $id = 1;
         $data = [
-            "name" => "坂本雅也",
+            "name" => "田中太郎",
             "email" => "test@example.com",
             "password" => "password"
         ];
@@ -64,7 +60,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200)
         ->assertJsonFragment([
-            "name" => "坂本雅也",
+            "name" => "田中太郎",
             "email" => "test@example.com"
         ]);
         $this->assertDatabaseHas('users', $data);
@@ -75,7 +71,7 @@ class UserControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->DELETE("/api/user/{$user->id}");
+        $response = $this->delete("/api/user/{$user->id}");
 
         $response->assertStatus(200);
         $this->assertSoftDeleted('users', [
