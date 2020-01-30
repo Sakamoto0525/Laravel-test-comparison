@@ -22,5 +22,5 @@ Route::middleware(['cors'])->group(function () {
         return response()->json();
     });
 
-    // Route::resource('user', 'UserController');
+    Route::resource('user', 'UserController');
 });
