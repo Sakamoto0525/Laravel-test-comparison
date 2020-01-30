@@ -6,6 +6,11 @@ use App\User;
 describe('User API', function() {
     beforeAll(function() {
         $this->laravel->useTrait(RefreshDatabase::class);
+        $this->data = [
+            "name" => "田中太郎",
+            "email" => "test@example.com",
+            "password" => "123456789"
+        ];
     });
 
     context('Index', function() {
@@ -26,14 +31,6 @@ describe('User API', function() {
     });
 
     context('Store', function() {
-        beforeEach(function() {
-            $this->data = [
-                "name" => "田中太郎",
-                "email" => "test@example.com",
-                "password" => "123456789"
-            ];
-        });
-
         it('status code 200', function() {
             $response = $this->laravel->post('/api/user', $this->data);
 
@@ -59,11 +56,6 @@ describe('User API', function() {
     context('Update', function() {
         beforeEach(function() {
             $this->user = factory(User::class)->create();
-            $this->data = [
-                "name" => "田中太郎",
-                "email" => "test@example.com",
-                "password" => "123456789"
-            ];
         });
 
         it('status code 200', function() {
@@ -91,11 +83,6 @@ describe('User API', function() {
     context('Delete', function() {
         beforeEach(function() {
             $this->user = factory(User::class)->create();
-            $this->data = [
-                "name" => "田中太郎",
-                "email" => "test@example.com",
-                "password" => "123456789"
-            ];
         });
 
         it('status code 200', function() {
