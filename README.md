@@ -1,6 +1,6 @@
 # Laravel-test-comparison
 
-Laravel標準のPHPUnitとLaravel-Kahlanのテストを、UserAPIを通して実装・比較をする
+Laravel標準のPHPUnitとLaravel-Kahlanのテストを、UserAPIを実装してみて比較をする
 
 ## 環境
 
